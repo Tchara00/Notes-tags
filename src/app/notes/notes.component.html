@@ -1,0 +1,14 @@
+<a (click)="dialogAddNote()">➕ Ajouter une note</a>
+
+<ul>
+  @for(note of notes; track note.id) {
+    <li [style.backgroundColor]="note.color">
+      <strong>{{ note.title }}</strong>
+      <p>{{ note.content || '(cristiano ronaldo)' }}</p>
+      <small>Type : {{ note.type }}</small>
+      <button (click)="deleteNote(note)"> Supprimer</button>
+    </li>
+  } @empty {
+    <li>Aucune note !</li>
+  }
+</ul>

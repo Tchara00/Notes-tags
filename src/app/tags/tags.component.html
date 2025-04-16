@@ -1,0 +1,25 @@
+<a (click)="startEdit()">➕ Créer une étiquette</a>
+
+<form *ngIf="editing" (ngSubmit)="submitEdit()">
+  <label>
+    Nom :
+    <input type="text" [(ngModel)]="editing.name" name="name" required />
+  </label>
+  <label>
+    Couleur :
+    <input type="color" [(ngModel)]="editing.color" name="color" />
+  </label>
+  <button type="submit"> Valider</button>
+  <button type="button" (click)="cancelEdit()"> Annuler</button>
+</form>
+
+<ul>
+  @for (tag of tags; track $index) {
+    <li (dblclick)="startEdit(tag)" style="display: flex; align-items: center; gap: 0.5rem;">
+      <app-tag [id]="tag.id" [name]="tag.name" [color]="tag.color"></app-tag>
+      <button (click)="deleteTag(tag)"> Supprimer</button>
+    </li>    
+  } @empty {
+    <li>Aucun tag !</li>
+  }
+</ul>
