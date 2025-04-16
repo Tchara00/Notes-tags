@@ -1,14 +1,21 @@
-<a (click)="dialogAddNote()">➕ Ajouter une note</a>
+<a (click)="startAddNote()">➕ Ajouter une note</a>
+
+<form *ngIf="editingNote" (ngSubmit)="saveNote()">
+  <input type="text" [(ngModel)]="editingNote.title" name="title" placeholder="Titre" required />
+  <textarea [(ngModel)]="editingNote.content" name="content" placeholder="Contenu" required></textarea>
+  <input type="color" [(ngModel)]="editingNote.color" name="color" />
+  <button type="submit">Ajouter</button>
+  <button type="button" (click)="cancelEdit()">Annuler</button>
+</form>
 
 <ul>
-  @for(note of notes; track note.id) {
-    <li [style.backgroundColor]="note.color">
+    <li *ngFor="let note of notes" [style.backgroundColor]="note.color">
       <strong>{{ note.title }}</strong>
-      <p>{{ note.content || '(cristiano ronaldo)' }}</p>
+      <p>{{ note.content }}</p>
       <small>Type : {{ note.type }}</small>
-      <button (click)="deleteNote(note)"> Supprimer</button>
+      <br />
+      <button (click)="startEditNote(note)">✏️ Modifier</button>
+      <button (click)="deleteNote(note)">🗑️ Supprimer</button>
     </li>
-  } @empty {
-    <li>Aucune note !</li>
-  }
-</ul>
+  </ul>
+  
